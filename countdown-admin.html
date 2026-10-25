@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en" data-theme="dusk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>countdown control</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    main { max-width: 620px; padding-top: 24px; }
+    label { display: block; margin: 12px 0 4px; color: var(--muted); }
+    input { width: 100%; padding: 8px 10px; font: inherit; color: var(--text); background: var(--bg); border: 2px solid var(--line); }
+    .buttons { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
+    button.btn { cursor: pointer; font: inherit; }
+    #out { margin-top: 16px; min-height: 1.6em; }
+    .ok { color: #6ee7b7; } .bad { color: #ff8a8a; }
+    small { color: var(--muted); display: block; margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="win">
+      <div class="bar"><h1 class="title">countdown control</h1></div>
+      <div class="inner">
+        <p>turn the stream countdown on or off for everyone who visits your page.</p>
+
+        <label for="repo">your site's repo</label>
+        <input id="repo" placeholder="dsmonvr/dsmonvr.github.io" autocomplete="off">
+        <label for="branch">branch</label>
+        <input id="branch" value="main" autocomplete="off">
+        <label for="token">GitHub token</label>
+        <input id="token" type="password" autocomplete="off" placeholder="github_pat_...">
+        <small>stays in this browser only. use a fine-grained token limited to this one repo with Contents set to read and write.</small>
+
+        <label for="target">start time (optional)</label>
+        <input id="target" type="datetime-local">
+        <small>leave empty to count down to the next thursday 5pm est. a time you pick here uses this computer's time zone.</small>
+        <label for="msg">message under the countdown (optional)</label>
+        <input id="msg" maxlength="120" placeholder="playing something new tonight">
+
+        <div class="buttons">
+          <button class="btn solid" id="on">turn on</button>
+          <button class="btn" id="off">turn off</button>
+          <button class="btn" id="copy">copy json instead</button>
+        </div>
+        <p id="out" role="status"></p>
+      </div>
+    </section>
+  </main>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var out = $("out");
+  var keys = ["repo", "branch", "token"];
+  keys.forEach(function (k) { try { var v = localStorage.getItem("cd_" + k); if (v) $(k).value = v; } catch (e) {} });
+
+  function say(t, ok) { out.textContent = t; out.className = ok ? "ok" : "bad"; }
+  function build(enabled) {
+    var t = $("target").value;
+    return {
+      enabled: enabled,
+      target: t ? new Date(t).toISOString() : null,
+      message: $("msg").value.trim()
+    };
+  }
+  function b64(str) { return btoa(unescape(encodeURIComponent(str))); }
+
+  function save(enabled) {
+    var repo = $("repo").value.trim(), branch = $("branch").value.trim() || "main", token = $("token").value.trim();
+    if (!repo || !token) { say("fill in the repo and your token first.", false); return; }
+    keys.forEach(function (k) { try { localStorage.setItem("cd_" + k, $(k).value.trim()); } catch (e) {} });
+
+    var url = "https://api.github.com/repos/" + repo + "/contents/countdown.json";
+    var headers = { "Authorization": "Bearer " + token, "Accept": "application/vnd.github+json" };
+    say("saving...", true);
+
+    fetch(url + "?ref=" + encodeURIComponent(branch), { headers: headers })
+      .then(function (r) { if (r.status === 404) return {}; if (!r.ok) throw new Error("could not read countdown.json (" + r.status + ")"); return r.json(); })
+      .then(function (cur) {
+        var body = { message: "countdown " + (enabled ? "on" : "off"), content: b64(JSON.stringify(build(enabled), null, 2) + "\n"), branch: branch };
+        if (cur.sha) body.sha = cur.sha;
+        return fetch(url, { method: "PUT", headers: headers, body: JSON.stringify(body) });
+      })
+      .then(function (r) { if (!r.ok) throw new Error("save failed (" + r.status + "). check the repo name, branch and token permissions."); })
+      .then(function () { say("countdown is now " + (enabled ? "on" : "off") + ". it can take a minute or two to reach visitors.", true); })
+      .catch(function (e) { say(e.message, false); });
+  }
+
+  $("on").addEventListener("click", function () { save(true); });
+  $("off").addEventListener("click", function () { save(false); });
+  $("copy").addEventListener("click", function () {
+    var j = JSON.stringify(build(true), null, 2);
+    (navigator.clipboard ? navigator.clipboard.writeText(j) : Promise.reject())
+      .then(function () { say("copied. paste it into countdown.json on GitHub and commit.", true); })
+      .catch(function () { say(j, true); });
+  });
+})();
+</script>
+</body>
+</html>

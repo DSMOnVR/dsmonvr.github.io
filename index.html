@@ -1,88 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <title>DSMONVR — Content Creator</title>
-        <meta name="description" content="DSMONVR — creator of gaming videos, VR content, and livestreams." />
-        <meta property="og:title" content="DSMONVR" />
-        <meta property="og:description" content="Creator of gaming videos, VR content, and livestreams." />
-        <style>
-            :root{--bg:#0f1724;--panel:#0b1220;--accent:#7c3aed;--muted:#94a3b8;--glass:rgba(255,255,255,0.03)}
-            html,body{height:100%}
-            body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;line-height:1.4;margin:0;background:linear-gradient(180deg,#071022 0%,#071029 100%);color:#e6eef8;display:flex;align-items:center;justify-content:center;padding:24px}
-            .container{max-width:980px;width:100%}
-            header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
-            .logo{font-weight:700;letter-spacing:1px;font-size:20px}
-            nav a{color:var(--muted);text-decoration:none;margin-left:18px}
-            .hero{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:32px;border-radius:12px;box-shadow:0 6px 24px rgba(2,6,23,0.6);display:grid;grid-template-columns:1fr 320px;gap:24px}
-            .title{font-size:28px;margin:0 0 8px}
-            .subtitle{color:var(--muted);margin:0 0 16px}
-            .actions a{display:inline-block;background:var(--accent);color:white;padding:10px 14px;border-radius:8px;text-decoration:none;margin-right:10px;font-weight:600}
-            .card{background:var(--panel);padding:16px;border-radius:10px;color:#cfe6ff}
-            .channels a{display:block;color:#cfe6ff;text-decoration:none;padding:8px 0}
-            .links a{display:inline-block;margin-right:8px;padding:8px 10px;background:var(--glass);border-radius:8px;color:var(--muted);text-decoration:none}
-            footer{margin-top:18px;color:var(--muted);font-size:13px}
-            @media (max-width:880px){.hero{grid-template-columns:1fr;}.actions a{display:block;margin-bottom:8px}}
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <header>
-                <div class="logo">DSMONVR</div>
-                <nav>
-                    <a href="#about">About</a>
-                    <a href="#content">Content</a>
-                    <a href="#links">Links</a>
-                </nav>
-            </header>
+<!doctype html>
+<html lang="en" data-theme="dusk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>undylaned</title>
+  <meta name="description" content="undylaned streams every Thursday at 5pm EST and makes DSMHub, an unblocked games website.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <a class="logo" href="./">undylaned</a>
+    <div class="themes" role="group" aria-label="Color theme">
+      <button class="swatch" data-theme="dusk" aria-label="Dusk theme" aria-pressed="true"></button>
+      <button class="swatch" data-theme="ember" aria-label="Ember theme" aria-pressed="false"></button>
+      <button class="swatch" data-theme="mint" aria-label="Mint theme" aria-pressed="false"></button>
+    </div>
+  </header>
 
-            <main class="hero">
-                <section>
-                    <h1 class="title">Hey — I'm DSMONVR</h1>
-                    <p class="subtitle">I make gaming and VR videos, livestreams, and short-form creative content. Find my latest uploads and where I stream below.</p>
-
-                    <div class="actions">
-                        <a href="#content">Latest Video</a>
-                        <a href="#links" style="background:#111827">Follow Me</a>
-                    </div>
-
-                    <h3 id="about" style="margin-top:22px">About</h3>
-                    <div class="card">
-                        <p style="margin:0">I'm a content creator focused on immersive VR experiences, gameplay highlights, and community streams. I publish weekly — subscribe to catch new videos and join the next livestream.</p>
-                    </div>
-
-                    <h3 id="content" style="margin-top:18px">Latest</h3>
-                    <div class="card" style="margin-top:8px">
-                        <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px">
-                            <iframe src="https://www.youtube.com/embed/IGeak4wAD34?start=79" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:8px"></iframe>
-                        </div>
-                        <p style="margin:8px 0 0"><a href="https://www.youtube.com/watch?v=IGeak4wAD34&t=79s" target="_blank" rel="noopener" style="color:var(--accent)">YouTube — Latest Upload</a></p>
-                    </div>
-                </section>
-
-                <aside>
-                    <div class="card">
-                        <h4 style="margin-top:0">Channels</h4>
-                        <div class="channels">
-                            <a href="https://www.youtube.com/@DSMOnVR" target="_blank" rel="noopener">YouTube</a>
-                        </div>
-                    </div>
-
-                    <div class="card" style="margin-top:12px">
-                        <h4 style="margin-top:0">Quick Links</h4>
-                        <div class="links">
-                            <a href="mailto:dsmatm201419@gmail.com">Email</a>
-                            <a href="https://www.roblox.com/users/7886558387/profile?friendshipSourceType=PlayerSearch" target="_blank" rel="noopener">Roblox</a>
-                            <a href="#" title="Replace with your Discord invite link">Join Discord</a>
-                        </div>
-                    </div>
-                </aside>
-            </main>
-
-            <footer>
-                <div>Built with GitHub Pages — put this repository at <code>USERNAME.github.io</code> to publish to <code>https://USERNAME.github.io</code>.</div>
-            </footer>
+  <main>
+    <!-- ABOUT: the main section. Edit the lines below to say whatever you want. -->
+    <section class="win" id="about">
+      <div class="bar">
+        <h2 class="title">about me</h2>
+        <button class="min" aria-expanded="true" aria-controls="about-body" aria-label="Collapse about me">-</button>
+      </div>
+      <div class="wrap" id="about-body">
+        <div class="inner about-grid">
+          <div class="avatar">
+            <!-- put your picture at images/avatar.png -->
+            <img src="images/avatar.png" alt="undylaned" width="160" height="160" onerror="this.remove()">
+          </div>
+          <div>
+            <h1 class="hello"><span id="typed" data-text="hi, i'm undylaned!!"></span><span class="cursor" aria-hidden="true"></span></h1>
+            <p>i stream every thursday at 5pm est on twitch, and i post on youtube.</p>
+            <p>i'm making DSMHub, an unblocked games website you can open and play right away.</p>
+            <p>this page is where my links, my stream schedule and my projects live.</p>
+          </div>
         </div>
-    </body>
+      </div>
+    </section>
+
+    <div class="row">
+      <section class="win" id="stream">
+        <div class="bar">
+          <h2 class="title">stream</h2>
+          <button class="min" aria-expanded="true" aria-controls="stream-body" aria-label="Collapse stream">-</button>
+        </div>
+        <div class="wrap" id="stream-body">
+          <div class="inner">
+            <p class="status"><span class="lamp" id="lamp"></span><span id="status-text">every thursday, 5:00 pm est</span></p>
+            <div class="clock" id="clock" hidden aria-live="off">
+              <div><b id="cd-d">00</b><span>days</span></div>
+              <div><b id="cd-h">00</b><span>hours</span></div>
+              <div><b id="cd-m">00</b><span>minutes</span></div>
+              <div><b id="cd-s">00</b><span>seconds</span></div>
+            </div>
+            <p class="note" id="cd-note" hidden></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="win" id="links">
+        <div class="bar">
+          <h2 class="title">find me</h2>
+          <button class="min" aria-expanded="true" aria-controls="links-body" aria-label="Collapse find me">-</button>
+        </div>
+        <div class="wrap" id="links-body">
+          <div class="inner linklist">
+            <a class="btn" href="https://www.twitch.tv/undylaned" target="_blank" rel="noopener">twitch.tv/undylaned</a>
+            <a class="btn" href="https://www.youtube.com/@undylaned" target="_blank" rel="noopener">youtube.com/@undylaned</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="win" id="projects">
+      <div class="bar">
+        <h2 class="title">projects</h2>
+        <button class="min" aria-expanded="true" aria-controls="projects-body" aria-label="Collapse projects">-</button>
+      </div>
+      <div class="wrap" id="projects-body">
+        <div class="inner project">
+          <div class="shot">
+            <!-- put a screenshot at images/dsmhub.png -->
+            <img src="images/dsmhub.png" alt="DSMHub screenshot" onerror="this.remove()">
+          </div>
+          <div>
+            <h3>DSMHub</h3>
+            <p>an unblocked games website. open it, pick a game, play.</p>
+            <a class="btn solid" href="https://dsmonvr.github.io/dsmhub" target="_blank" rel="noopener">open DSMHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>made by undylaned</footer>
+  <script src="script.js"></script>
+</body>
 </html>
